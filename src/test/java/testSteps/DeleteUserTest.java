@@ -1,5 +1,6 @@
 package testSteps;
 
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 
 import io.cucumber.java.After;
@@ -16,9 +17,12 @@ public class DeleteUserTest {
 	WebTablePage wTablePage = new WebTablePage(driver);
 	final String url="https://www.way2automation.com/angularjs-protractor/webtables/";
 	
+	
 	@Given("^Webtable page open$")
 	public void openWebtablePage ()  {
-		wTablePage.openConection(url);
+		String currentUrl = wTablePage.openConection(url);
+		Assertions.assertTrue(url.equals(currentUrl),"url dos not match");
+
 	}
 	
 	@And("^The user name (.*) exists$")
@@ -37,13 +41,9 @@ public class DeleteUserTest {
 
 	@Then("^The user (.*) is deleted from the table$")
 	public void validateUserNameWasDeleted(String userName) {
-		System.out.println(wTablePage.getValueOnTable(userName, 3));
+		Assertions.assertFalse(wTablePage.getValueOnTable(userName, 3),"UserName "+userName+" deleted ");
+		wTablePage.closeConection();
 	}
 	
-	@After
-	public void tearDown() {
-		wTablePage.closeConection(driver);
-	}
-
 
 }

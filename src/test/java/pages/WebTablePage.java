@@ -34,10 +34,12 @@ public class WebTablePage extends Base {
 	By cancelDeleteBtn = By.xpath("//button[@class='btn ng-scope ng-binding']");
 	
 	
-	public void openConection(String url) {
+	public String openConection(String url) {
 		browserDriverConnection();
-		getPage(url);
+		String currentUrl =getPage(url);
+		return currentUrl;
 	}
+	
 	
 	public WebElement getAddUserBtn() {
 		WebElement addBtn = findElement(addUser);
@@ -119,7 +121,6 @@ public class WebTablePage extends Base {
 
 	public boolean getValueOnTable(String username, Integer colum) {
 		boolean userFound = false;
-		WebElement userFoundElement = null;
 		do {
 			List<WebElement> rows = getElementsTableRows(getTable(), colum);
 			for (WebElement row : rows) {
@@ -158,8 +159,8 @@ public class WebTablePage extends Base {
 	}
 
 	
-	public void closeConection(WebDriver driver) {
-		browserQuitDriverConnection(driver);
+	public void closeConection() {
+		closeBrowser();
 		}
 
 }

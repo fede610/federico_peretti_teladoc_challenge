@@ -1,8 +1,8 @@
 package testSteps;
 
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import io.cucumber.java.After;
-import io.cucumber.java.Before;
 import io.cucumber.java.en.*;
 import pages.WebTablePage;
 
@@ -13,11 +13,10 @@ public class AddUserTest {
 	WebTablePage wTablePage = new WebTablePage(driver);
 	final String url="https://www.way2automation.com/angularjs-protractor/webtables/";
 
-
-	
 	@Given("^Webtable page is open$")
 	public void openWebtablePage ()  {
-		wTablePage.openConection(url);
+		String currentUrl = wTablePage.openConection(url);
+		Assertions.assertTrue(url.equals(currentUrl),"url dos not match");
 	}
 		@When("^The user add a new user (.*), (.*), (.*), (.*), (.*), (.*), (.*), (.*)$")
 	public void theUserAddANewUser (
@@ -42,25 +41,19 @@ public class AddUserTest {
 		wTablePage.setEmail(email);
 		wTablePage.setMobilePhone(cellphone);
 		
-		//TODO Validar boton isEnable
+		//TODO Validar boton isEnabled
 		wTablePage.getSaveBtn().click();		
 	    
 	}
 	
 	
-	//validateThatUserWasAddedTotheTable
+	
 	@Then("^The user is displayed on the table (.*)$")
 	public void validateThatUserWasAddedTotheTable(String userName) {
-		//TODO Agregar assertion
-		System.out.println("userName is present= " + wTablePage.getValueOnTable(userName, 3));
-	    
+		Assertions.assertTrue(wTablePage.getValueOnTable(userName, 3), "userName "+ userName + "was not inserted");
+		wTablePage.closeConection();
 	}
 	
-	@After
-	public void tearDown() {
-		wTablePage.closeConection(driver);
-	}
-
 	
 	}
 

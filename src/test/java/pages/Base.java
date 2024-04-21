@@ -62,12 +62,13 @@ public class Base {
 		}
 	}
 	
-	public void getPage(String url) {
+	public String getPage(String url) {
 		driver.get(url);
-		
+		return driver.getCurrentUrl();
 	}
 	
-	public void browserQuitDriverConnection(WebDriver driver) {
+	
+	public void closeBrowser() {
 		driver.quit();
 	}
 	
