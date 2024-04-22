@@ -11,7 +11,6 @@ public class WebTablePage extends Base {
 
 	public WebTablePage(WebDriver driver) {
 		super(driver);
-		// TODO Auto-generated constructor stub
 	}
 
 	By firstName = By.name("FirstName");

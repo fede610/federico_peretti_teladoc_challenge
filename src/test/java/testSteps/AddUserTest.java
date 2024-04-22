@@ -30,7 +30,7 @@ public class AddUserTest {
 			String cellphone) {		   
 		   
 		wTablePage.getAddUserBtn().click();
-		//TODO ver si es visible
+		
 		
 		wTablePage.setFirstName(firstName);
 		wTablePage.setLastName(lastName);
@@ -41,7 +41,7 @@ public class AddUserTest {
 		wTablePage.setEmail(email);
 		wTablePage.setMobilePhone(cellphone);
 		
-		//TODO Validar boton isEnabled
+		
 		wTablePage.getSaveBtn().click();		
 	    
 	}
