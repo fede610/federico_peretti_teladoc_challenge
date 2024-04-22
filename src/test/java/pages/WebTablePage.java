@@ -9,17 +9,16 @@ import org.openqa.selenium.support.ui.Select;
 
 public class WebTablePage extends Base {
 
-		
 	public WebTablePage(WebDriver driver) {
 		super(driver);
 		// TODO Auto-generated constructor stub
 	}
 
-	By firstName= By.name("FirstName");
+	By firstName = By.name("FirstName");
 	By lastName = By.name("LastName");
 	By userName = By.name("UserName");
 	By password = By.name("Password");
-	By email	= By.name("Email");
+	By email = By.name("Email");
 	By cellPhone = By.name("Mobilephone");
 	By selectRol = By.name("RoleId");
 	By close = By.xpath("//button[@class='btn btn-danger']");
@@ -29,59 +28,56 @@ public class WebTablePage extends Base {
 	By NextPage = By.xpath("//li/a[text()='>']/..");
 	By fullTable = By.xpath("//tbody");
 	By userNameCol = By.xpath("//tr/td[3]");
-	
+
 	By confirmDeleteBtn = By.xpath("//button[@class='btn ng-scope ng-binding btn-primary']");
 	By cancelDeleteBtn = By.xpath("//button[@class='btn ng-scope ng-binding']");
-	
-	
+
 	public String openConection(String url) {
 		browserDriverConnection();
-		String currentUrl =getPage(url);
+		String currentUrl = getPage(url);
 		return currentUrl;
 	}
-	
-	
+
 	public WebElement getAddUserBtn() {
 		WebElement addBtn = findElement(addUser);
 		return addBtn;
 	}
-	
-	public void setFirstName (String fName) {
+
+	public void setFirstName(String fName) {
 		clear(firstName);
-		sendKeys(fName, firstName);	
+		sendKeys(fName, firstName);
 	}
-	
-	public void setLastName (String lName) {
+
+	public void setLastName(String lName) {
 		clear(lastName);
 		sendKeys(lName, lastName);
 	}
-	
-	public void setUserName (String uName) {
+
+	public void setUserName(String uName) {
 		clear(userName);
 		sendKeys(uName, userName);
 	}
-	
-	public void setPassword (String pass) {
+
+	public void setPassword(String pass) {
 		clear(password);
-		sendKeys(pass, password);			
+		sendKeys(pass, password);
 	}
-	
-	public void setEmail (String mail) {
+
+	public void setEmail(String mail) {
 		clear(email);
-		sendKeys(mail, email);			
+		sendKeys(mail, email);
 	}
-	
-	public void setMobilePhone (String cel) {
+
+	public void setMobilePhone(String cel) {
 		clear(cellPhone);
-		sendKeys(cel, cellPhone);			
+		sendKeys(cel, cellPhone);
 	}
-	 
-	 
+
 	public void setCustomer(String customer) {
 		click(By.xpath("//label[normalize-space()='" + customer + "']"));
 	}
-	
-	public void setRol (String rol) {
+
+	public void setRol(String rol) {
 		Select selectRolObject = new Select(findElement(selectRol));
 		List<WebElement> allElements = selectRolObject.getOptions();
 		for (WebElement option : allElements) {
@@ -89,33 +85,34 @@ public class WebTablePage extends Base {
 				option.click();
 		}
 	}
-	
+
 	public WebElement getSaveBtn() {
 		WebElement saveBtn = findElement(save);
 		return saveBtn;
 	}
-	
+
 	public String getNextPageBtnParent() {
 		String NextPageParentBtnAttribute = findElement(NextPageParent).getAttribute("class");
 		return NextPageParentBtnAttribute;
 	}
-	
+
 	public WebElement getNextPage() {
 		WebElement NextPageBtn = findElement(NextPage);
 		return NextPageBtn;
 	}
-	
-	public WebElement getTable () {
+
+	public WebElement getTable() {
 		WebElement table = findElement(fullTable);
 		return table;
 	}
-	
-	public List<WebElement> getElementsTableRows(WebElement table, int colNumber){
-		List<WebElement> rows = table.findElements(By.xpath("//tr/td["+ colNumber +"]"));
+
+	public List<WebElement> getElementsTableRows(WebElement table, int colNumber) {
+		List<WebElement> rows = table.findElements(By.xpath("//tr/td[" + colNumber + "]"));
 		return rows;
 	}
-	public WebElement getRowBtn(WebElement row, int colNumber){
-		WebElement rowBtn = row.findElement(By.xpath("//tr[]/td["+ colNumber +"]/button"));
+
+	public WebElement getRowBtn(WebElement row, int colNumber) {
+		WebElement rowBtn = row.findElement(By.xpath("//tr[]/td[" + colNumber + "]/button"));
 		return rowBtn;
 	}
 
@@ -129,38 +126,33 @@ public class WebTablePage extends Base {
 					System.out.println("User found " + row.getText());
 					userFound = true;
 					return true;
-
-				} else
-					System.out.println("User not match " + row.getText());
+				}
 			}
-			
 			if (userFound) {
 				userFound = true;
 			} else if (!userFound && getNextPageBtnParent().equals("ng-scope")) {
 				getNextPage().click();
-				System.out.println("Siguiente pagina");
+
 			} else {
-				System.out.println("User name '" + username + "' not found");
 				userFound = true;
 			}
 		} while (!userFound);
 		return false;
 	}
-	
+
 	public WebElement getValueAndDeleteFromTable(String username) {
-		WebElement userFoundElement = findElement(By.xpath("//table/tbody/tr/td[3][normalize-space()='"+username+"']/following-sibling::td[8]/button"));
+		WebElement userFoundElement = findElement(By
+				.xpath("//table/tbody/tr/td[3][normalize-space()='" + username + "']/following-sibling::td[8]/button"));
 		return userFoundElement;
-		
 	}
-	
+
 	public WebElement getConfirmDeleteBtn() {
 		WebElement confirmBtn = findElement(confirmDeleteBtn);
 		return confirmBtn;
 	}
 
-	
 	public void closeConection() {
 		closeBrowser();
-		}
+	}
 
 }
