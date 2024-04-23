@@ -27,21 +27,19 @@ public class DeleteUserTest {
 	
 	@And("^The user name (.*) exists$")
 	public void validateUserNameExistOnTable(String userName) {
-	    System.out.println(userName);
-		wTablePage.getValueOnTable(userName, 3);
-		
+	    Assertions.assertTrue(wTablePage.getValueOnTable(userName, 3), 
+	    		"User name " + userName + " was found");		
 	}
 	
 	@When("^The user delete the user (.*)$")
 	public void deleteUserfromTable (String username) {
-		wTablePage.getValueAndDeleteFromTable(username).click();
-		wTablePage.getConfirmDeleteBtn().click();	
-		
+		wTablePage.click(wTablePage.getValueAndDeleteFromTable(username));
+		wTablePage.click(wTablePage.getConfirmDeleteBtn());
 	}
 
 	@Then("^The user (.*) is deleted from the table$")
 	public void validateUserNameWasDeleted(String userName) {
-		Assertions.assertFalse(wTablePage.getValueOnTable(userName, 3),"UserName "+userName+" deleted ");
+		Assertions.assertFalse(wTablePage.getValueOnTable(userName, 3),"UserName "+userName+" was deleted ");
 		wTablePage.closeConection();
 	}
 	

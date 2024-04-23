@@ -73,7 +73,7 @@ public class WebTablePage extends Base {
 	}
 
 	public void setCustomer(String customer) {
-		click(By.xpath("//label[normalize-space()='" + customer + "']"));
+		clickElement(By.xpath("//label[normalize-space()='" + customer + "']"));
 	}
 
 	public void setRol(String rol) {
@@ -88,6 +88,10 @@ public class WebTablePage extends Base {
 	public WebElement getSaveBtn() {
 		WebElement saveBtn = findElement(save);
 		return saveBtn;
+	}
+	
+	public void click(WebElement element) {
+		clickElement(element);
 	}
 
 	public String getNextPageBtnParent() {
@@ -117,25 +121,22 @@ public class WebTablePage extends Base {
 
 	public boolean getValueOnTable(String username, Integer colum) {
 		boolean userFound = false;
-		do {
+			do{
 			List<WebElement> rows = getElementsTableRows(getTable(), colum);
 			for (WebElement row : rows) {
 				System.out.println(row.getText());
 				if (row.getText().equals(username)) {
 					System.out.println("User found " + row.getText());
-					userFound = true;
-					return true;
+					return userFound = true;
 				}
 			}
-			if (userFound) {
-				userFound = true;
-			} else if (!userFound && getNextPageBtnParent().equals("ng-scope")) {
-				getNextPage().click();
-
-			} else {
-				userFound = true;
-			}
-		} while (!userFound);
+			if (!userFound && getNextPageBtnParent().equals("ng-scope")) {
+				clickElement(getNextPage());
+				}
+				else {
+					return userFound;
+				}
+		}while (!userFound);
 		return false;
 	}
 
@@ -148,6 +149,14 @@ public class WebTablePage extends Base {
 	public WebElement getConfirmDeleteBtn() {
 		WebElement confirmBtn = findElement(confirmDeleteBtn);
 		return confirmBtn;
+	}
+	
+	public Boolean isDisplayed(WebElement element) {
+		return isDisplayed(element);
+	}
+	
+	public Boolean isEnabled(WebElement element) {
+		return isEnabled(element);
 	}
 
 	public void closeConection() {

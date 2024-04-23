@@ -30,7 +30,7 @@ public class Base {
 			prop.load(input);
 
 			String browser = prop.getProperty("browser");
-			
+
 			switch (browser) {
 
 			case "chrome":
@@ -83,16 +83,24 @@ public class Base {
 		driver.findElement(locator).clear();
 	}
 
-	public void click(By locator) {
+	public void clickElement(WebElement webElement) {
+		webElement.click();
+	}
+
+	public void clickElement(By locator) {
 		driver.findElement(locator).click();
 	}
 
-	public Boolean isDisplayed(By locator) {
+	public Boolean getVisibility(WebElement element) {
 		try {
-			return driver.findElement(locator).isDisplayed();
+			return element.isDisplayed();
 		} catch (org.openqa.selenium.NoSuchElementException e) {
 			return false;
 		}
+	}
+
+	public Boolean getState(WebElement element) {
+		return element.isEnabled();
 	}
 
 	public String getPage(String url) {
