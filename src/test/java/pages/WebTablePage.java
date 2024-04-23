@@ -119,25 +119,25 @@ public class WebTablePage extends Base {
 		return rowBtn;
 	}
 
-	public boolean getValueOnTable(String username, Integer colum) {
-		boolean userFound = false;
+	public boolean getValueOnTable(String userName, Integer colum) {
 			do{
 			List<WebElement> rows = getElementsTableRows(getTable(), colum);
 			for (WebElement row : rows) {
 				System.out.println(row.getText());
-				if (row.getText().equals(username)) {
-					System.out.println("User found " + row.getText());
-					return userFound = true;
+				if (row.getText().equals(userName)) {
+					System.out.println("User name '" + row.getText() + "' found on table");
+					return true;
 				}
 			}
-			if (!userFound && getNextPageBtnParent().equals("ng-scope")) {
+			if (getNextPageBtnParent().equals("ng-scope")) {
 				clickElement(getNextPage());
+				System.out.println("Next page");
 				}
 				else {
-					return userFound;
+					System.out.println("User name '" + userName + "' not found on table");
+					return false;
 				}
-		}while (!userFound);
-		return false;
+		}while (true);
 	}
 
 	public WebElement getValueAndDeleteFromTable(String username) {

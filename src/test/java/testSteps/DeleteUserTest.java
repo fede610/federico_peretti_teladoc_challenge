@@ -39,7 +39,7 @@ public class DeleteUserTest {
 
 	@Then("^The user (.*) is deleted from the table$")
 	public void validateUserNameWasDeleted(String userName) {
-		Assertions.assertFalse(wTablePage.getValueOnTable(userName, 3),"UserName "+userName+" was deleted ");
+		Assertions.assertFalse(wTablePage.getValueOnTable(userName, 3),"UserName "+userName+" was deleted");
 		wTablePage.closeConection();
 	}
 	
